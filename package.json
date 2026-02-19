@@ -1,30 +1,51 @@
 {
   "name": "design-token-bridge-mcp",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "MCP server that translates design tokens between platforms — Tailwind, Figma, CSS to Material 3, SwiftUI, and CSS Variables",
   "type": "module",
   "bin": {
     "design-token-bridge-mcp": "./build/index.js"
   },
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node build/index.js",
     "lint": "eslint src/",
-    "test": "node --experimental-vm-modules node_modules/vitest/vitest.mjs"
+    "test": "node --experimental-vm-modules node_modules/vitest/vitest.mjs",
+    "test:e2e": "npx playwright test",
+    "prepublishOnly": "npm run test && npm run build"
   },
   "keywords": [
     "mcp",
+    "mcp-server",
     "design-tokens",
+    "design-system",
     "figma",
     "tailwind",
     "material-design",
+    "material3",
     "swiftui",
+    "liquid-glass",
     "css-variables",
-    "model-context-protocol"
+    "model-context-protocol",
+    "claude",
+    "style-dictionary",
+    "wcag",
+    "accessibility"
   ],
   "author": "kenneives",
   "license": "MIT",
+  "homepage": "https://github.com/kenneives/design-token-bridge-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/kenneives/design-token-bridge-mcp/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/kenneives/design-token-bridge-mcp.git"
