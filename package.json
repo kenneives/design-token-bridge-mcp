@@ -1,0 +1,47 @@
+{
+  "name": "design-token-bridge-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that translates design tokens between platforms — Tailwind, Figma, CSS to Material 3, SwiftUI, and CSS Variables",
+  "type": "module",
+  "bin": {
+    "design-token-bridge-mcp": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node build/index.js",
+    "lint": "eslint src/",
+    "test": "node --experimental-vm-modules node_modules/vitest/vitest.mjs"
+  },
+  "keywords": [
+    "mcp",
+    "design-tokens",
+    "figma",
+    "tailwind",
+    "material-design",
+    "swiftui",
+    "css-variables",
+    "model-context-protocol"
+  ],
+  "author": "kenneives",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kenneives/design-token-bridge-mcp.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0"
+  }
+}
