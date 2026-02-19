@@ -16,7 +16,7 @@ import { parseTokensFromString } from "./utils/token-validator.js";
 
 const server = new McpServer({
   name: "design-token-bridge-mcp",
-  version: "1.0.1",
+  version: "1.0.2",
 });
 
 function toolResult(text: string) {
