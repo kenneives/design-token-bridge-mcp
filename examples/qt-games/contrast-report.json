@@ -1,0 +1,36 @@
+{
+  "level": "AA",
+  "total": 2,
+  "passing": 2,
+  "failing": 0,
+  "results": [
+    {
+      "pair": "text on background",
+      "foreground": "#F8FAFC",
+      "background": "#0F172A",
+      "ratio": 17.06,
+      "aa": {
+        "normalText": true,
+        "largeText": true
+      },
+      "aaa": {
+        "normalText": true,
+        "largeText": true
+      }
+    },
+    {
+      "pair": "text on surface",
+      "foreground": "#F8FAFC",
+      "background": "#1E293B",
+      "ratio": 13.98,
+      "aa": {
+        "normalText": true,
+        "largeText": true
+      },
+      "aaa": {
+        "normalText": true,
+        "largeText": true
+      }
+    }
+  ]
+}
