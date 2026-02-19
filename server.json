@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.kenneives/design-token-bridge-mcp",
-  "description": "MCP server that translates design tokens between platforms — extract from Tailwind, CSS, Figma, or W3C DTCG, then generate Material 3 (Kotlin), SwiftUI, Tailwind config, and CSS Variables. Includes WCAG contrast validation.",
+  "description": "Translate design tokens between Tailwind, Figma, CSS, Material 3, and SwiftUI",
   "repository": {
     "url": "https://github.com/kenneives/design-token-bridge-mcp",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "design-token-bridge-mcp",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "transport": {
         "type": "stdio"
       }

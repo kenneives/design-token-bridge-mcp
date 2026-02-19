@@ -1,6 +1,7 @@
 {
   "name": "design-token-bridge-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "mcpName": "io.github.kenneives/design-token-bridge-mcp",
   "description": "MCP server that translates design tokens between platforms — Tailwind, Figma, CSS to Material 3, SwiftUI, and CSS Variables",
   "type": "module",
   "bin": {
