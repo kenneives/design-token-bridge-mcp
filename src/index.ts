@@ -3,11 +3,30 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
+import { extractTokensFromTailwind } from "./tools/extract-tailwind.js";
+import { extractTokensFromCSS } from "./tools/extract-css.js";
+import { extractTokensFromFigmaVariables } from "./tools/extract-figma.js";
+import { extractTokensFromDTCG } from "./tools/extract-dtcg.js";
+import { generateMaterial3Theme } from "./tools/generate-material3.js";
+import { generateSwiftUITheme } from "./tools/generate-swiftui.js";
+import { generateTailwindConfig } from "./tools/generate-tailwind.js";
+import { generateCSSVariables } from "./tools/generate-css.js";
+import { validateContrast } from "./tools/validate-contrast.js";
+import { parseTokensFromString } from "./utils/token-validator.js";
 
 const server = new McpServer({
   name: "design-token-bridge-mcp",
   version: "0.1.0",
 });
+
+function toolResult(text: string) {
+  return { content: [{ type: "text" as const, text }] };
+}
+
+function errorResult(error: unknown) {
+  const msg = error instanceof Error ? error.message : String(error);
+  return toolResult(JSON.stringify({ error: msg }));
+}
 
 // --- Extraction Tools (Inputs) ---
 
@@ -25,12 +44,12 @@ server.registerTool(
     },
   },
   async ({ config }) => {
-    // TODO: Implement in task #3
-    return {
-      content: [
-        { type: "text" as const, text: JSON.stringify({ error: "Not yet implemented" }) },
-      ],
-    };
+    try {
+      const tokens = extractTokensFromTailwind(config);
+      return toolResult(JSON.stringify(tokens, null, 2));
+    } catch (e) {
+      return errorResult(e);
+    }
   }
 );
 
@@ -44,12 +63,12 @@ server.registerTool(
     },
   },
   async ({ css }) => {
-    // TODO: Implement in task #4
-    return {
-      content: [
-        { type: "text" as const, text: JSON.stringify({ error: "Not yet implemented" }) },
-      ],
-    };
+    try {
+      const tokens = extractTokensFromCSS(css);
+      return toolResult(JSON.stringify(tokens, null, 2));
+    } catch (e) {
+      return errorResult(e);
+    }
   }
 );
 
@@ -65,12 +84,12 @@ server.registerTool(
     },
   },
   async ({ variables }) => {
-    // TODO: Implement in task #5
-    return {
-      content: [
-        { type: "text" as const, text: JSON.stringify({ error: "Not yet implemented" }) },
-      ],
-    };
+    try {
+      const tokens = extractTokensFromFigmaVariables(variables);
+      return toolResult(JSON.stringify(tokens, null, 2));
+    } catch (e) {
+      return errorResult(e);
+    }
   }
 );
 
@@ -84,12 +103,12 @@ server.registerTool(
     },
   },
   async ({ json }) => {
-    // TODO: Implement in task #6
-    return {
-      content: [
-        { type: "text" as const, text: JSON.stringify({ error: "Not yet implemented" }) },
-      ],
-    };
+    try {
+      const tokens = extractTokensFromDTCG(json);
+      return toolResult(JSON.stringify(tokens, null, 2));
+    } catch (e) {
+      return errorResult(e);
+    }
   }
 );
 
@@ -105,12 +124,16 @@ server.registerTool(
     },
   },
   async ({ tokens }) => {
-    // TODO: Implement in task #7
-    return {
-      content: [
-        { type: "text" as const, text: JSON.stringify({ error: "Not yet implemented" }) },
-      ],
-    };
+    try {
+      const parsed = parseTokensFromString(tokens);
+      if (!parsed.valid) {
+        return toolResult(JSON.stringify({ error: "Invalid tokens", details: parsed.errors }));
+      }
+      const kotlin = generateMaterial3Theme(parsed.tokens!);
+      return toolResult(kotlin);
+    } catch (e) {
+      return errorResult(e);
+    }
   }
 );
 
@@ -129,12 +152,16 @@ server.registerTool(
     },
   },
   async ({ tokens, liquidGlass }) => {
-    // TODO: Implement in task #8
-    return {
-      content: [
-        { type: "text" as const, text: JSON.stringify({ error: "Not yet implemented" }) },
-      ],
-    };
+    try {
+      const parsed = parseTokensFromString(tokens);
+      if (!parsed.valid) {
+        return toolResult(JSON.stringify({ error: "Invalid tokens", details: parsed.errors }));
+      }
+      const swift = generateSwiftUITheme(parsed.tokens!, liquidGlass);
+      return toolResult(swift);
+    } catch (e) {
+      return errorResult(e);
+    }
   }
 );
 
@@ -153,12 +180,16 @@ server.registerTool(
     },
   },
   async ({ tokens, format }) => {
-    // TODO: Implement in task #9
-    return {
-      content: [
-        { type: "text" as const, text: JSON.stringify({ error: "Not yet implemented" }) },
-      ],
-    };
+    try {
+      const parsed = parseTokensFromString(tokens);
+      if (!parsed.valid) {
+        return toolResult(JSON.stringify({ error: "Invalid tokens", details: parsed.errors }));
+      }
+      const config = generateTailwindConfig(parsed.tokens!, format);
+      return toolResult(config);
+    } catch (e) {
+      return errorResult(e);
+    }
   }
 );
 
@@ -178,12 +209,23 @@ server.registerTool(
     },
   },
   async ({ tokens, darkTokens }) => {
-    // TODO: Implement in task #10
-    return {
-      content: [
-        { type: "text" as const, text: JSON.stringify({ error: "Not yet implemented" }) },
-      ],
-    };
+    try {
+      const parsed = parseTokensFromString(tokens);
+      if (!parsed.valid) {
+        return toolResult(JSON.stringify({ error: "Invalid tokens", details: parsed.errors }));
+      }
+      let darkParsed;
+      if (darkTokens) {
+        darkParsed = parseTokensFromString(darkTokens);
+        if (!darkParsed.valid) {
+          return toolResult(JSON.stringify({ error: "Invalid dark tokens", details: darkParsed.errors }));
+        }
+      }
+      const css = generateCSSVariables(parsed.tokens!, darkParsed?.tokens);
+      return toolResult(css);
+    } catch (e) {
+      return errorResult(e);
+    }
   }
 );
 
@@ -202,12 +244,16 @@ server.registerTool(
     },
   },
   async ({ tokens, level }) => {
-    // TODO: Implement in task #11
-    return {
-      content: [
-        { type: "text" as const, text: JSON.stringify({ error: "Not yet implemented" }) },
-      ],
-    };
+    try {
+      const parsed = parseTokensFromString(tokens);
+      if (!parsed.valid) {
+        return toolResult(JSON.stringify({ error: "Invalid tokens", details: parsed.errors }));
+      }
+      const report = validateContrast(parsed.tokens!, level);
+      return toolResult(JSON.stringify(report, null, 2));
+    } catch (e) {
+      return errorResult(e);
+    }
   }
 );
 
