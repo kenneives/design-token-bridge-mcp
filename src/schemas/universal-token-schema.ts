@@ -28,9 +28,8 @@ const typographyToken = z.object({
   fontWeight: z
     .number()
     .int()
-    .min(100, "fontWeight minimum is 100")
-    .max(900, "fontWeight maximum is 900")
-    .refine((v) => v % 100 === 0, "fontWeight must be a multiple of 100")
+    .min(1, "fontWeight minimum is 1")
+    .max(1000, "fontWeight maximum is 1000")
     .optional(),
   letterSpacing: z.number().optional(),
 });

@@ -76,55 +76,67 @@ export function extractTokensFromTailwind(configContent: string): DesignTokens {
 }
 
 /**
- * Extract the theme object from config text.
- * Uses Function constructor with a mock environment to safely evaluate.
+ * Extract the theme object from config text using static analysis only.
+ * No code execution (no eval/Function) — uses regex + JSON parsing.
  */
 function extractThemeObject(content: string): Record<string, any> | null {
-  // Strip TypeScript type annotations and imports
-  let cleaned = content
+  // Strip TypeScript type annotations and imports for cleaner parsing
+  const cleaned = content
     .replace(/import\s+.*?from\s+['"].*?['"]\s*;?\n?/g, "")
     .replace(/import\s+type\s+.*?\n/g, "")
     .replace(/:\s*Config\b/g, "")
     .replace(/satisfies\s+Config\b/g, "")
-    .replace(/as\s+const\b/g, "");
+    .replace(/as\s+const\b/g, "")
+    .replace(/require\s*\(\s*['"].*?['"]\s*\)/g, "{}");
 
-  // Replace export default with return
-  cleaned = cleaned.replace(/export\s+default\s+/, "return ");
-
-  // Replace module.exports = with return
-  cleaned = cleaned.replace(/module\.exports\s*=\s*/, "return ");
-
-  // Handle defineConfig wrapper — just treat it as identity
-  cleaned = cleaned.replace(/defineConfig\s*\(\s*/, "(");
-
-  // Handle require() calls — replace with empty object
-  cleaned = cleaned.replace(/require\s*\(\s*['"].*?['"]\s*\)/g, "{}");
-
-  try {
-    // Use Function constructor to evaluate in isolation
-    const fn = new Function(cleaned);
-    const config = fn();
-    if (config && typeof config === "object") {
-      return config.theme || config;
-    }
-  } catch {
-    // Fallback: try to extract theme via regex
-  }
-
-  // Fallback: try to extract a JSON-like theme block
-  return extractThemeViaRegex(content);
+  return extractThemeViaRegex(cleaned);
 }
 
 function extractThemeViaRegex(content: string): Record<string, any> | null {
-  // Look for theme: { ... } or theme.extend: { ... }
-  const themeMatch = content.match(/theme\s*:\s*(\{[\s\S]*?\n\s*\})/);
-  if (themeMatch) {
+  // Try to find and extract a balanced theme: { ... } block
+  const themeBlock = extractBalancedBlock(content, /theme\s*:\s*\{/);
+  if (themeBlock) {
     try {
-      // Try to parse as relaxed JSON (convert single quotes, remove trailing commas)
-      const relaxed = relaxJSON(themeMatch[1]);
+      const relaxed = relaxJSON(themeBlock);
       return JSON.parse(relaxed);
     } catch {
-      return null;
+      // Fall through to simpler patterns
+    }
+  }
+
+  // Try export default { ... } or module.exports = { ... } as a whole config
+  const configBlock = extractBalancedBlock(
+    content,
+    /(?:export\s+default|module\.exports\s*=)\s*(?:defineConfig\s*\(\s*)?\{/
+  );
+  if (configBlock) {
+    try {
+      const relaxed = relaxJSON(configBlock);
+      const parsed = JSON.parse(relaxed);
+      return parsed.theme || parsed;
+    } catch {
+      // Fall through
+    }
+  }
+
+  return null;
+}
+
+/** Extract a balanced { ... } block starting at the match of `startPattern`. */
+function extractBalancedBlock(content: string, startPattern: RegExp): string | null {
+  const match = content.match(startPattern);
+  if (!match || match.index === undefined) return null;
+
+  // Find the opening brace position
+  const braceStart = content.indexOf("{", match.index);
+  if (braceStart === -1) return null;
+
+  let depth = 0;
+  for (let i = braceStart; i < content.length; i++) {
+    if (content[i] === "{") depth++;
+    else if (content[i] === "}") depth--;
+    if (depth === 0) {
+      return content.slice(braceStart, i + 1);
     }
   }
   return null;

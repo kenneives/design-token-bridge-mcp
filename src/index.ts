@@ -16,7 +16,7 @@ import { parseTokensFromString } from "./utils/token-validator.js";
 
 const server = new McpServer({
   name: "design-token-bridge-mcp",
-  version: "0.1.0",
+  version: "1.0.1",
 });
 
 function toolResult(text: string) {
@@ -25,7 +25,7 @@ function toolResult(text: string) {
 
 function errorResult(error: unknown) {
   const msg = error instanceof Error ? error.message : String(error);
-  return toolResult(JSON.stringify({ error: msg }));
+  return { content: [{ type: "text" as const, text: JSON.stringify({ error: msg }) }], isError: true as const };
 }
 
 // --- Extraction Tools (Inputs) ---

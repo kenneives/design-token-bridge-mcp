@@ -137,8 +137,10 @@ function mapToM3TypographyRole(name: string): string | null {
 }
 
 function toPascalCase(str: string): string {
-  return str
+  const result = str
     .split(/[-_\s]/)
     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
     .join("");
+  // Prefix with underscore if it starts with a digit (invalid Kotlin identifier)
+  return /^\d/.test(result) ? `_${result}` : result;
 }

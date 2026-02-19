@@ -85,18 +85,17 @@ describe("validateTokens", () => {
 
   it("rejects fontWeight out of range", () => {
     const result = validateTokens({
-      typography: { bad: { fontSize: 16, fontWeight: 1000 } },
+      typography: { bad: { fontSize: 16, fontWeight: 1001 } },
     });
     expect(result.valid).toBe(false);
-    expect(result.errors![0]).toContain("fontWeight maximum is 900");
+    expect(result.errors![0]).toContain("fontWeight maximum is 1000");
   });
 
-  it("rejects fontWeight not a multiple of 100", () => {
+  it("accepts CSS Fonts Level 4 fontWeight values (1-1000)", () => {
     const result = validateTokens({
-      typography: { bad: { fontSize: 16, fontWeight: 450 } },
+      typography: { heading: { fontSize: 16, fontWeight: 450 } },
     });
-    expect(result.valid).toBe(false);
-    expect(result.errors![0]).toContain("fontWeight must be a multiple of 100");
+    expect(result.valid).toBe(true);
   });
 
   it("rejects negative spacing", () => {
