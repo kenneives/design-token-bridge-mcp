@@ -25,6 +25,10 @@ When making code changes that affect the build output, you must republish:
 - `npm test` — vitest unit tests
 - `npm run test:e2e` — Playwright visual tests (QT Games landing page)
 
+## TODO
+- **awesome-mcp-servers badge**: PR #2162 at punkpeye/awesome-mcp-servers is still OPEN. Once merged, add this badge to the top of README.md (after the title): `[![Awesome MCP Servers](https://img.shields.io/badge/Awesome-MCP%20Servers-blue)](https://github.com/punkpeye/awesome-mcp-servers)`. Check status: `gh pr view 2162 --repo punkpeye/awesome-mcp-servers --json state`
+- **MCP registry publisher**: The CLI is now `mcp-publisher` (homebrew binary), NOT the old `@anthropic-ai/mcp-publisher` npm package. Update step 6 in Publishing Checklist above.
+
 ## Security Notes
 - `.mcpregistry_*` tokens are in `.gitignore` — never commit these
 - `.env` contains API keys — never commit
