@@ -4,6 +4,10 @@ An MCP server that translates design tokens between platforms. Extract tokens fr
 
 Built for the **v0 → Figma → Claude Code** design pipeline.
 
+<a href="https://glama.ai/mcp/servers/kenneives/design-token-bridge-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/kenneives/design-token-bridge-mcp/badge" alt="design-token-bridge-mcp MCP server" />
+</a>
+
 ```
 ┌──────────────┐     ┌──────────────┐     ┌────────────────────────┐
 │  Tailwind     │     │              │     │  Material 3 (Kotlin)   │
