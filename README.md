@@ -1,5 +1,9 @@
 # design-token-bridge-mcp
 
+<a href="https://glama.ai/mcp/servers/kenneives/design-token-bridge-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/kenneives/design-token-bridge-mcp/badge" />
+</a>
+
 An MCP server that translates design tokens between platforms. Extract tokens from Tailwind, CSS, Figma, or W3C DTCG format — then generate native themes for Material 3 (Kotlin), SwiftUI (with Liquid Glass), Tailwind, and CSS Variables.
 
 Built for the **v0 → Figma → Claude Code** design pipeline.
