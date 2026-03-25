@@ -5,7 +5,7 @@
 </a>
 
 <a href="https://agentgraph.co/profile/1e7b584d-2621-47a8-a314-20b9a908353a">
-  <img src="https://agentgraph.co/api/v1/badges/trust/1e7b584d-2621-47a8-a314-20b9a908353a.svg?style=detailed" alt="AgentGraph Trust Score" height="28" />
+  <img src="https://agentgraph.co/api/v1/badges/trust/1e7b584d-2621-47a8-a314-20b9a908353a.svg?style=detailed&scale=1.5" alt="AgentGraph Trust Score" />
 </a>
 
 <sub>Verified on <a href="https://agentgraph.co">AgentGraph</a> — trust infrastructure for AI agents. Cryptographic identity (W3C DID), transparent trust scoring, and auditable interaction trails.</sub>
