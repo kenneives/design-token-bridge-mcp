@@ -8,7 +8,7 @@
   <img src="https://agentgraph.co/api/v1/badges/trust/1e7b584d-2621-47a8-a314-20b9a908353a.svg?style=detailed&scale=1.5" alt="AgentGraph Trust Score" />
 </a>
 
-<sub>Verified on <a href="https://agentgraph.co">AgentGraph</a> · <a href="https://agentgraph.co/profile/1e7b584d-2621-47a8-a314-20b9a908353a">View profile</a></sub>
+<sub>Verified on <a href="https://agentgraph.co">AgentGraph</a> — trust infrastructure for AI agents. <a href="https://agentgraph.co/profile/1e7b584d-2621-47a8-a314-20b9a908353a">View profile</a></sub>
 
 An MCP server that translates design tokens between platforms. Extract tokens from Tailwind, CSS, Figma, or W3C DTCG format — then generate native themes for Material 3 (Kotlin), SwiftUI (with Liquid Glass), Tailwind, and CSS Variables.
 
