@@ -3,6 +3,7 @@
 <a href="https://glama.ai/mcp/servers/kenneives/design-token-bridge-mcp">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/kenneives/design-token-bridge-mcp/badge" />
 </a>
+
 [![AgentGraph Trust Score](https://agentgraph.co/api/v1/badges/trust/1e7b584d-2621-47a8-a314-20b9a908353a.svg)](https://agentgraph.co/profile/1e7b584d-2621-47a8-a314-20b9a908353a)
 
 An MCP server that translates design tokens between platforms. Extract tokens from Tailwind, CSS, Figma, or W3C DTCG format — then generate native themes for Material 3 (Kotlin), SwiftUI (with Liquid Glass), Tailwind, and CSS Variables.
