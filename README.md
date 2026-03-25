@@ -5,7 +5,7 @@
 </a>
 <br>
 <a href="https://agentgraph.co/profile/1e7b584d-2621-47a8-a314-20b9a908353a">
-  <img src="https://agentgraph.co/api/v1/badges/trust/1e7b584d-2621-47a8-a314-20b9a908353a.svg?style=detailed&scale=1.5" alt="AgentGraph Trust Score" />
+  <img src="https://agentgraph.co/api/v1/badges/trust/1e7b584d-2621-47a8-a314-20b9a908353a.svg?style=detailed&theme=dark" alt="AgentGraph Trust Score" height="30" />
 </a>
 
 <sub>Verified on <a href="https://agentgraph.co">AgentGraph</a> — trust infrastructure for AI agents. <a href="https://agentgraph.co/profile/1e7b584d-2621-47a8-a314-20b9a908353a">View profile</a></sub>
